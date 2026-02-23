@@ -2,23 +2,33 @@ services:
   - type: web
     name: code-server
     runtime: docker
-    plan: starter # or free
+    plan: starter
+
+    # Run container as root
+    dockerUser: root
+
+    # If using Dockerfile in repo root
+    dockerfilePath: ./Dockerfile
+
     env:
-      - key: PUID
-        value: 1000
-      - key: PGID
-        value: 1000
       - key: TZ
         value: Etc/UTC
+
       - key: PASSWORD
-        generateValue: true # Render will generate a secure password
+        generateValue: true
+
       - key: SUDO_PASSWORD
         generateValue: true
+
       - key: DEFAULT_WORKSPACE
         value: /config/workspace
+
       - key: PWA_APPNAME
         value: code-server
+
     disk:
       name: code-server-data
       mountPath: /config
       sizeGB: 10
+
+    healthCheckPath: /
