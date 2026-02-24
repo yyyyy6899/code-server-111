@@ -7,12 +7,15 @@ ENV TZ=Etc/UTC \
 USER root
 
 # Install basic utilities
-RUN apk update && apk add --no-cache \
-    wget \
-    curl \
-    htop \
-    nano \
-    iptables
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+        wget \
+        curl \
+        htop \
+        nano \
+        iptables && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 EXPOSE 8443
 VOLUME ["/config"]
