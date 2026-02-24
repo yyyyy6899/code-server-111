@@ -13,7 +13,7 @@ RUN apt-get update && \
         curl \
         htop \
         nano \
-        iptables && \
+        iptables \
         openssh-server && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
