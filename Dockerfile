@@ -7,20 +7,6 @@ ENV TZ=Etc/UTC \
 
 USER root
 
-# -------------------------
-# Install Theme Extension
-# -------------------------
-RUN code-server --install-extension GoodM4ven.extension-vsc-community-material-theme-darker-high-contrast
-
-# -------------------------
-# Set Default Theme
-# -------------------------
-RUN mkdir -p /config/.config/Code/User && \
-    echo '{ \
-      "workbench.colorTheme": "Community Material Theme Darker High Contrast", \
-      "editor.fontSize": 14 \
-    }' > /config/.config/Code/User/settings.json
-
 # Install required system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
@@ -39,6 +25,21 @@ RUN apt-get update && \
         sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+    # -------------------------
+# Install Theme Extension
+# -------------------------
+RUN code-server --install-extension GoodM4ven.extension-vsc-community-material-theme-darker-high-contrast
+
+# -------------------------
+# Set Default Theme
+# -------------------------
+RUN mkdir -p /config/.config/Code/User && \
+    echo '{ \
+      "workbench.colorTheme": "Community Material Theme Darker High Contrast", \
+      "editor.fontSize": 14 \
+    }' > /config/.config/Code/User/settings.json
+
 
 # -------------------------
 # Install Linuxbrew (Homebrew for Linux)
