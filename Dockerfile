@@ -7,15 +7,11 @@ ENV TZ=Etc/UTC \
 
 USER root
 
-# Install base dependencies
+# Install required system dependencies
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-        wget \
         curl \
-        htop \
-        nano \
-        iptables \
-        openssh-server \
+        wget \
         git \
         build-essential \
         python3 \
@@ -30,25 +26,32 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Bun (official installer)
+# -------------------------
+# Install Bun
+# -------------------------
 RUN curl -fsSL https://bun.sh/install | bash
 
 # Add Bun to PATH
 ENV PATH="/root/.bun/bin:${PATH}"
 
+# -------------------------
 # Install Linuxbrew (Homebrew for Linux)
+# -------------------------
 RUN git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew && \
     mkdir -p /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew
 
-# Set brew environment
+# Add Brew to PATH
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
-# Verify installations (optional but good practice)
+# -------------------------
+# Verify installations
+# -------------------------
 RUN node -v && \
     npm -v && \
     python3 --version && \
     pip3 --version && \
+    bun --version && \
     brew --version
 
 EXPOSE 8443
