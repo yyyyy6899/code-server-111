@@ -7,7 +7,9 @@ ENV TZ=Etc/UTC \
 
 USER root
 
+# -------------------------
 # Install required system dependencies
+# -------------------------
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
@@ -26,7 +28,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-    # -------------------------
+# -------------------------
 # Install Theme Extension
 # -------------------------
 RUN code-server --install-extension GoodM4ven.extension-vsc-community-material-theme-darker-high-contrast
@@ -40,7 +42,6 @@ RUN mkdir -p /config/.config/Code/User && \
       "editor.fontSize": 14 \
     }' > /config/.config/Code/User/settings.json
 
-
 # -------------------------
 # Install Linuxbrew (Homebrew for Linux)
 # -------------------------
@@ -48,7 +49,6 @@ RUN git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew && \
     mkdir -p /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew
 
-# Add Brew to PATH
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
 
 # -------------------------
