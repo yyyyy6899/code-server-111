@@ -17,14 +17,19 @@ RUN apt-get update && \
         python3 \
         python3-pip \
         python3-venv \
-        nodejs \
-        npm \
         ca-certificates \
         file \
         procps \
         sudo && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+# -------------------------
+# Install Node.js 20 and npm
+# -------------------------
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g npm@latest
 
 # -------------------------
 # Install Linuxbrew (Homebrew for Linux)
