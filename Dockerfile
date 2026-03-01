@@ -1,6 +1,5 @@
 FROM lscr.io/linuxserver/code-server:latest
 
-# Set environment variables
 ENV TZ=Etc/UTC \
     DEFAULT_WORKSPACE=/config/workspace \
     PWA_APPNAME=code-server \
@@ -8,9 +7,7 @@ ENV TZ=Etc/UTC \
 
 USER root
 
-# -------------------------
 # Install required system dependencies
-# -------------------------
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
@@ -22,7 +19,6 @@ RUN apt-get update && \
         python3-venv \
         nodejs \
         npm \
-        unzip \
         ca-certificates \
         file \
         procps \
@@ -37,21 +33,8 @@ RUN git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew && \
     mkdir -p /home/linuxbrew/.linuxbrew/bin && \
     ln -s /home/linuxbrew/.linuxbrew/bin/brew /usr/local/bin/brew
 
+# Add Brew to PATH
 ENV PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:${PATH}"
-
-# -------------------------
-# Install Community Material Theme Extension
-# -------------------------
-RUN code-server --install-extension GoodM4ven.extension-vsc-community-material-theme-darker-high-contrast
-
-# -------------------------
-# Set default theme and editor settings
-# -------------------------
-RUN mkdir -p /config/.config/Code/User && \
-    echo '{ \
-      "workbench.colorTheme": "Community Material Theme Darker High Contrast", \
-      "editor.fontSize": 14 \
-      }' > /config/.config/Code/User/settings.json
 
 # -------------------------
 # Verify installations
@@ -62,6 +45,5 @@ RUN node -v && \
     pip3 --version && \
     brew --version
 
-# Expose port and mount path
 EXPOSE 8443
 VOLUME ["/config"]
