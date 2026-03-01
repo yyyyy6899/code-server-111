@@ -27,14 +27,6 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # -------------------------
-# Install Bun
-# -------------------------
-RUN curl -fsSL https://bun.sh/install | bash
-
-# Add Bun to PATH
-ENV PATH="/root/.bun/bin:${PATH}"
-
-# -------------------------
 # Install Linuxbrew (Homebrew for Linux)
 # -------------------------
 RUN git clone https://github.com/Homebrew/brew /home/linuxbrew/.linuxbrew && \
@@ -51,7 +43,6 @@ RUN node -v && \
     npm -v && \
     python3 --version && \
     pip3 --version && \
-    bun --version && \
     brew --version
 
 EXPOSE 8443
