@@ -2,8 +2,7 @@ FROM lscr.io/linuxserver/code-server:latest
 
 ENV TZ=Etc/UTC \
     DEFAULT_WORKSPACE=/config/workspace \
-    PWA_APPNAME=code-server \
-    PASSWORD=JGG8Z7se4!UM#c7R6Q#%#K#&^9isH$
+    PWA_APPNAME=code-server 
 
 USER root
 
@@ -11,6 +10,7 @@ USER root
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         curl \
+        htop \
         wget \
         git \
         build-essential \
