@@ -11,6 +11,12 @@ services:
     dockerfilePath: ./Dockerfile
 
     env:
+     - key: PUID
+        value: 0
+        
+      - key: PGID
+        value: 0
+        
       - key: TZ
         value: Etc/UTC
 
